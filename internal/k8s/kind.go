@@ -18,6 +18,7 @@ import (
 	v1 "k8s.io/api/core/v1"
 	"k8s.io/api/networking/v1beta1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
+	"k8s.io/apimachinery/pkg/runtime"
 )
 
 // KindOf returns the kind string for the given Kubernetes object.
@@ -44,4 +45,8 @@ func KindOf(obj interface{}) string {
 	default:
 		return ""
 	}
+}
+
+func ApiVersionOf(obj interface{}) string {
+	return obj.(runtime.Object).GetObjectKind().GroupVersionKind().GroupVersion().String()
 }
